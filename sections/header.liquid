@@ -16,7 +16,7 @@
 
 {% include 'search-drawer' %}
 
-<div data-section-id="{{ section.id }}" data-section-type="header-section" data-header-section>
+<div class="headerBackground" data-section-id="{{ section.id }}" data-section-type="header-section" data-header-section>
   {% if section.settings.message %}
     {% if section.settings.home_page_only == false or request.page_type == 'index' %}
       <style>
@@ -58,8 +58,55 @@
     {% endif %}
   {% endif %}
 
-  <header class="site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %}" role="banner">
-    <div class="grid grid--no-gutters grid--table site-header__mobile-nav">
+  <header class="site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %} mid-header-pd" role="banner">
+
+      {% comment %} start header-icons {% endcomment %}
+      <div class="grid__item {% if section.settings.align_logo == 'left' %}medium-up--one-quarter{% else %}medium-up--one-third medium-up--push-one-third{% endif %} text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+        <div class="site-header__icons-wrapper">
+
+          <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top">
+            <p class="micro-headermenu">SEARCH</p>
+            {% comment %} {% include 'icon-search' %} {% endcomment %}
+            <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+          </button>
+
+          {% if shop.customer_accounts_enabled %}
+            {% if customer %}
+              <a href="{{ routes.account_url }}" class="site-header__icon site-header__account">
+                {% include 'icon-login' %}
+                <span class="icon__fallback-text">{{ 'layout.customer.account' | t }}</span>
+              </a>
+            {% else %}
+              <a href="{{ routes.account_login_url }}" class="site-header__icon site-header__account">
+                {% include 'icon-login' %}
+                <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
+              </a>
+            {% endif %}
+          {% endif %}
+
+          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
+          <p class="micro-headermenu">CART</p>
+            {% comment %} {% include 'icon-cart' %} {% endcomment %}
+            <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+            <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hide{% endif %}" data-cart-count-bubble>
+              <span data-cart-count>{{ cart.item_count }}</span>
+              <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+            </div>
+          </a>
+
+          {% unless linklists[section.settings.main_linklist] == blank %}
+            <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open" aria-controls="MobileNav"  aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
+              <p class="micro-headermenu menu-btn">MENU</p>
+              {% comment %} {% include 'icon-hamburger' %} {% endcomment %}
+              {% comment %} {% include 'icon-close' %} {% endcomment %}
+            </button>
+          {% endunless %}
+        </div>
+
+      </div>
+      {% comment %} end header-icons {% endcomment %}
+
+    <div class="grid grid--no-gutters grid--table site-header__mobile-nav mid-header">
       {% if section.settings.align_logo == 'center' %}
         {%- assign logo_classes = 'medium-up--one-third medium-up--push-one-third logo-align--center' -%}
       {% else %}
@@ -112,46 +159,8 @@
         </nav>
       {% endif %}
 
-      {% comment %} <div class="grid__item {% if section.settings.align_logo == 'left' %}medium-up--one-quarter{% else %}medium-up--one-third medium-up--push-one-third{% endif %} text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
-        <div class="site-header__icons-wrapper">
+      {% comment %} Previous location of header icons code {% endcomment %}
 
-          <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top">
-            {% include 'icon-search' %}
-            <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
-          </button>
-
-          {% if shop.customer_accounts_enabled %}
-            {% if customer %}
-              <a href="{{ routes.account_url }}" class="site-header__icon site-header__account">
-                {% include 'icon-login' %}
-                <span class="icon__fallback-text">{{ 'layout.customer.account' | t }}</span>
-              </a>
-            {% else %}
-              <a href="{{ routes.account_login_url }}" class="site-header__icon site-header__account">
-                {% include 'icon-login' %}
-                <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
-              </a>
-            {% endif %}
-          {% endif %}
-
-          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
-            {% include 'icon-cart' %}
-            <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
-            <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hide{% endif %}" data-cart-count-bubble>
-              <span data-cart-count>{{ cart.item_count }}</span>
-              <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
-            </div>
-          </a>
-
-          {% unless linklists[section.settings.main_linklist] == blank %}
-            <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open" aria-controls="MobileNav"  aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
-              {% include 'icon-hamburger' %}
-              {% include 'icon-close' %}
-            </button>
-          {% endunless %}
-        </div>
-
-      </div> {% endcomment %}
     </div>
 
     <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
@@ -237,12 +246,20 @@
                 {% endfor %}
               </ul>
             {% else %}
+
+            {% comment %} Menu popup can be adjusted here {% endcomment %}
+            
               <a href="{{ link.url }}"
                 class="mobile-nav__link{% if link.active %} mobile-nav__link--active{% endif %}"
                 {% if link.current %} aria-current="page"{% endif %}
               >
+              
                 <span class="mobile-nav__label">{{ link.title | escape }}</span>
+                  <div class="mobile-nav__icon">
+                    {% include 'icon-chevron-right' %}
+                  </div>
               </a>
+
             {% endif %}
           </li>
         {% endfor %}

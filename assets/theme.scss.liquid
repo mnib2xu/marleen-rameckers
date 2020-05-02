@@ -1411,6 +1411,8 @@ select {
   font-style: $font-style-body;
   font-weight: $font-weight-body;
   color: $color-text;
+  {% comment %} Added letter spacing {% endcomment %}
+  letter-spacing: 0.1em; 
   line-height: 1.5;
 }
 
@@ -1438,6 +1440,8 @@ h6 {
   line-height: 1.2;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  {% comment %} Added letter spacing {% endcomment %}
+  letter-spacing: 0.1em; 
 
   a {
     color: inherit;
@@ -1913,6 +1917,8 @@ a[href^="tel"] {
   letter-spacing: 0.08em;
   white-space: normal;
   font-size: $font-size-base - 2;
+  {% comment %} Added letter spacing {% endcomment %}
+  letter-spacing: 0.1em; 
 
   @include media-query($medium-up) {
     padding: $input-padding-top-bottom $input-padding-left-right;
@@ -2614,10 +2620,10 @@ textarea {
 }
 
 .site-nav__label {
-  border-bottom: 1px solid transparent;
+  {% comment %} border-bottom: 1px solid transparent; {% endcomment %}
 
   .site-nav__link--active & {
-    border-bottom-color: $color-text;
+    {% comment %} border-bottom-color: $color-text; {% endcomment %}
   }
 }
 
@@ -2632,7 +2638,8 @@ textarea {
 
   &:focus,
   &:hover {
-    color: $color-text-focus;
+    {% comment %} color: $color-text-focus; {% endcomment %}
+    color: purple;
   }
 }
 
@@ -4807,7 +4814,6 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
 /*================ MODULES ================*/
 .site-header {
   position: relative;
-  background-color: $color-body;
 
   @include media-query($small) {
     border-bottom: 1px solid $color-border;
@@ -8702,10 +8708,93 @@ $min-height-disclosure: 92px;
 
 {% comment %} Custom CSS {% endcomment %}
 
+{% comment %} Global {% endcomment %}
 .no-margin-left {
   margin-left: 0px;
 }
 
 .main-content {
   padding-top: 0px;
+}
+
+{% comment %} Product {% endcomment %}
+a.product-link {
+  color: transparent;
+
+  &:not([disabled]):hover,
+  &:focus {
+    color: white;
+  }
+}
+
+.product-item-dv {
+  width:33.3333333%; 
+  height:33vw;   
+}
+
+@media only screen and (max-width: 749px) {
+  .product-item-dv {
+    width:50%; 
+    height:50vw;   
+  }
+}
+
+{% comment %} Header {% endcomment %}
+.headerBackground {
+  background-color: #838788;
+}
+
+.site-header__mobile-nav.mid-header {
+  background-color:#838788;
+}
+
+.site-header {
+  backgound-color: #838788;
+  padding-bottom: 30px;
+  padding-top: 55px;
+}
+
+.site-header__icons {
+  width: 66.66%;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #838788;
+}
+
+.micro-headermenu {
+  font-size: 10px;
+}
+
+.menu-btn {
+  font-weight: bold;
+  margin: 0 0 19.44444px !important;
+}
+
+@media only screen and (max-width: 749px) {
+  .site-header__icons {
+    width:100%; 
+  }
+  .site-header {
+    border-bottom: none;
+    padding-top: 30px;
+  }
+}
+
+.mobile-nav-wrapper {
+  background-color: #838788;
+}
+
+.mobile-nav-wrapper::after {
+  border-bottom: none !important;
+}
+
+.mobile-nav {
+  padding-bottom: 30px;
+}
+
+{% comment %} Footer {% endcomment %}
+
+.site-footer {
+  margin-top: 35px;
 }
