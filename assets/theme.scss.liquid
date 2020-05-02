@@ -8717,6 +8717,29 @@ $min-height-disclosure: 92px;
   padding-top: 0px;
 }
 
+@font-face {
+  font-family: "knockregular";
+  src: url("knock-webfont.woff2") format("woff2"), url("knock-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+
+body,
+input,
+textarea,
+button,
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: knockregular;
+}
+
 {% comment %} Product {% endcomment %}
 a.product-link {
   color: transparent;
@@ -8758,6 +8781,10 @@ a.product-link {
   width: 66.66%;
 }
 
+.site-nav__link {
+  width: 179px;
+}
+
 .border-bottom {
   border-bottom: 1px solid #838788;
 }
@@ -8785,12 +8812,21 @@ a.product-link {
   background-color: #838788;
 }
 
+.mobile-nav__link--active .mobile-nav__label {
+  border-bottom: none;
+}
+
 .mobile-nav-wrapper::after {
   border-bottom: none !important;
 }
 
 .mobile-nav {
   padding-bottom: 30px;
+}
+
+.mobile-nav__item .icon {
+  height: 12px;
+  width: 10px;
 }
 
 {% comment %} Footer {% endcomment %}
