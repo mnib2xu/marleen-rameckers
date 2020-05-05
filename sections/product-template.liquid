@@ -1,4 +1,4 @@
-<div class="product-template__container page-width"
+<div class="product-template__container page-width "
   id="ProductSection-{{ section.id }}"
   data-section-id="{{ section.id }}"
   data-section-type="product"
@@ -27,7 +27,7 @@
     {% when 'large' %}
       {%- assign product_media_width = 'medium-up--two-thirds' -%}
       {%- assign product_description_width = 'medium-up--one-third' -%}
-      {%- assign height = 720 -%}
+      {%- assign height = 1080 -%}
     {% when 'full' %}
       {%- assign product_media_width = '' -%}
       {%- assign product_description_width = '' -%}
@@ -119,7 +119,7 @@
       {% endif %}
     </div>
 
-    <div class="grid__item {{ product_description_width }}">
+    <div class="grid__item {{ product_description_width }} product-text-content">
       <div class="product-single__meta">
 
         <h1 class="product-single__title">{{ product.title }}</h1>
