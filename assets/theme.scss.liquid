@@ -1473,7 +1473,7 @@ h2 {
 h3 {
   font-size: em($font-size-header);
   text-transform: none;
-  letter-spacing: 0;
+  {% comment %} letter-spacing: 0; {% endcomment %}
 
   @include media-query($small) {
     font-size: em(floor($font-size-header * 0.78));
@@ -8713,6 +8713,10 @@ $min-height-disclosure: 92px;
   margin-left: 0px;
 }
 
+.light {
+  padding: 120px 0;
+}
+
 .main-content {
   padding-top: 0px;
 }
@@ -8738,6 +8742,7 @@ h6,
 p,
 a {
   font-family: knockregular;
+  text-transform: uppercase;
 }
 
 body {
@@ -8746,6 +8751,19 @@ body {
   letter-spacing: 0.1em;
   text-align: center;
   font-family: 'knockregular';
+}
+
+h1 {
+  font-size: 24px;
+}
+
+nav {
+  font-size: 16px;
+}
+
+h3,
+h2 {
+  font-size: 14px;
 }
 
 @media only screen and (max-width: 749px) {
@@ -8758,6 +8776,10 @@ body {
   body {
     line-height: 2;
   }
+}
+
+.grid {
+  margin-left: 0px;
 }
  
 {% comment %} Product list {% endcomment %}
