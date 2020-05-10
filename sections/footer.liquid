@@ -229,11 +229,17 @@
     </div>
   </div>
 
+    <div class="grid grid--no-gutters">
+	    <div class="grid__item">
+        Marleen Rameckers Atelier · <a style="color:white;" href="mailto:atelier@marleenrameckers.nl" target="_blank" aria-describedby="a11y-new-window-external-message" rel="noopener">atelier@marleenrameckers.nl</a> · +31 (0) 6 33824207 
+      </div>
+    </div>
+
   <hr class="site-footer__hr">
 
   {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
 
-  <div class="page-width">
+  {% comment %} <div class="page-width">
     <div class="grid grid--no-gutters small--text-center grid--footer-float-right">
       {%- if show_selectors -%}
         <div class="grid__item one-half small--one-whole">
@@ -324,6 +330,8 @@
         {%- endif -%}
       </div>
 
+
+
       {%- if show_selectors -%}
         <div class="grid__item small--hide {{ payment_width_class }}">{{ payment_icon_markup }}</div>
       {%- endif -%}
@@ -342,7 +350,7 @@
         <small class="site-footer__copyright-content site-footer__copyright-content--powered-by">{{ powered_by_link }}</small>
       </div>
     </div>
-  </div>
+  </div> {% endcomment %}
 </footer>
 
 

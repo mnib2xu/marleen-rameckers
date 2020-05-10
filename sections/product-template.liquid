@@ -124,20 +124,7 @@
 
         <h1 class="product-single__title">{{ product.title }}</h1>
 
-          <div class="product__price">
-            {% include 'product-price', variant: current_variant, show_vendor: section.settings.show_vendor %}
-          </div>
 
-          {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
-            <div class="product__policies rte" data-product-policies>
-              {%- if shop.taxes_included -%}
-                {{ 'products.product.include_taxes' | t }}
-              {%- endif -%}
-              {%- if shop.shipping_policy.body != blank -%}
-                {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-              {%- endif -%}
-            </div>
-          {%- endif -%}
 
           {% capture "form_classes" -%}
             product-form product-form-{{ section.id }}
@@ -198,6 +185,26 @@
               <span class="product-form__error-message" data-error-message>{{ 'products.product.quantity_minimum_message' | t }}</span>
             </div>
 
+            <div class="product-single__description rte">
+              {{ product.description }}
+            </div>
+
+
+          <div class="product__price">
+            {% include 'product-price', variant: current_variant, show_vendor: section.settings.show_vendor %}
+          </div>
+
+          {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+            <div class="product__policies rte" data-product-policies>
+              {%- if shop.taxes_included -%}
+                {{ 'products.product.include_taxes' | t }}
+              {%- endif -%}
+              {%- if shop.shipping_policy.body != blank -%}
+                {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
             <div class="product-form__controls-group product-form__controls-group--submit">
               <div class="product-form__item product-form__item--submit
                 {%- if section.settings.enable_payment_button %} product-form__item--payment-button {%- endif -%}
@@ -219,13 +226,24 @@
                     {% include 'icon-spinner' %}
                   </span>
                 </button>
-                {% if section.settings.enable_payment_button %}
+                {% comment %} {% if section.settings.enable_payment_button %}
                   {{ form | payment_button }}
-                {% endif %}
+                {% endif %} {% endcomment %}
               </div>
             </div>
+
+            <div class="text-left" style="margin:30px 0px 30px 0px;">
+              <a href="/" class="btn--has-icon-before return-link">
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 20 8"><path d="M4.814 7.555C3.95 6.61 3.2 5.893 2.568 5.4 1.937 4.91 1.341 4.544.781 4.303v-.44a9.933 9.933 0 0 0 1.875-1.196c.606-.485 1.328-1.196 2.168-2.134h.752c-.612 1.309-1.253 2.315-1.924 3.018H19.23v.986H3.652c.495.632.84 1.1 1.036 1.406.195.306.485.843.869 1.612h-.743z" fill="#000" fill-rule="evenodd"></path></svg>
+                Back to All
+              </a>
+            </div>  
+
+
           {% endform %}
         </div>
+
+
 
         {%- comment -%}
           Live region for announcing updated price and availability to screen readers
@@ -245,9 +263,9 @@
           aria-hidden="true"
         >{{ 'products.product.loader_label' | t }}</p>
 
-        <div class="product-single__description rte">
-          {{ product.description }}
-        </div>
+
+
+
 
         {% if section.settings.show_share_buttons %}
           {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
@@ -255,6 +273,8 @@
     </div>
   </div>
 </div>
+
+        
 
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
